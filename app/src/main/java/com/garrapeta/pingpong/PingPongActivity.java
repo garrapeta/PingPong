@@ -1,16 +1,10 @@
 package com.garrapeta.pingpong;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -33,15 +27,11 @@ public class PingPongActivity extends Activity implements World.WorldListener {
     private int mSoundStart;
     private int mSoundWrong;
 
-    private WifiP2pManager mWifiP2pManager;
-    private WifiP2pManager.Channel mWifiP2pChannel;
-    private BroadcastReceiver mWiFiDirectBroadcastReceiver;
-    private IntentFilter mWiFiDirectIntentFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+        setContentView(R.layout.activity_pingpong);
         bindViews();
 
         mWorld.setListener(this);
@@ -63,50 +53,8 @@ public class PingPongActivity extends Activity implements World.WorldListener {
         mSoundBallToGround = mSoundPool.load(this, R.raw.ball_2_ground, 5);
         mSoundSwing = mSoundPool.load(this, R.raw.swing, 1);
         mSoundWrong = mSoundPool.load(this, R.raw.wrong, 1);
-
-        setupWifiP2P();
-
     }
 
-
-    private void setupWifiP2P() {
-        mWiFiDirectIntentFilter = new IntentFilter();
-        mWiFiDirectIntentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
-        mWiFiDirectIntentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
-        mWiFiDirectIntentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
-        mWiFiDirectIntentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
-
-        mWifiP2pManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
-        mWifiP2pChannel = mWifiP2pManager.initialize(this, getMainLooper(), null);
-        mWiFiDirectBroadcastReceiver = new WiFiDirectBroadcastReceiver(mWifiP2pManager, mWifiP2pChannel, this);
-    }
-
-
-    /* register the broadcast receiver with the intent values to be matched */
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        registerReceiver(mWiFiDirectBroadcastReceiver, mWiFiDirectIntentFilter);
-        mWifiP2pManager.discoverPeers(mWifiP2pChannel, new WifiP2pManager.ActionListener() {
-            @Override
-            public void onSuccess() {
-                Log.e(WiFiDirectBroadcastReceiver.TAG, "OK");
-            }
-
-            @Override
-            public void onFailure(int reasonCode) {
-                Log.e(WiFiDirectBroadcastReceiver.TAG, "KO " + reasonCode);
-            }
-        });
-    }
-
-    /* unregister the broadcast receiver */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(mWiFiDirectBroadcastReceiver);
-    }
 
 
     private void initPlayersGui() {
@@ -200,8 +148,6 @@ public class PingPongActivity extends Activity implements World.WorldListener {
         playSound(mSoundWrong);
         initPlayersGui();
     }
-
-
 
 
 }
