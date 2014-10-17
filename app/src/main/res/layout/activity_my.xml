@@ -1,22 +1,80 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MyActivity">
 
-    <Button
-    android:text="Swing A"
-    android:onClick="onSwingAButtonClicked"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    <!-- First player -->
+    <TextView
+        android:id="@+id/playerNameA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:onClick="onSwingAButtonClicked"
+        android:text="Player A"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/scoreA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/playerNameA"
+        android:onClick="onSwingAButtonClicked"
+        android:text="Score A"
+        android:textSize="30dp" />
 
     <Button
-        android:text="Swing B"
-        android:onClick="onSwingBButtonClicked"
+        android:id="@+id/swingButtonA"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/scoreA"
+        android:onClick="onSwingAButtonClicked"
+        android:text="Swing A" />
+
+    <!-- Second player player -->
+    <TextView
+        android:id="@+id/playerNameB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:onClick="onSwingAButtonClicked"
+        android:text="Player B"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/scoreB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/playerNameA"
+        android:onClick="onSwingAButtonClicked"
+        android:text="Score B"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/swingButtonB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/swingButtonA"
+        android:onClick="onSwingBButtonClicked"
+        android:text="Swing B" />
+
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/state_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="state text"/>
+</RelativeLayout>
